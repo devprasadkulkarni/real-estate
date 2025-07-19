@@ -13,3 +13,7 @@ If you are developing a production application, we recommend using TypeScript wi
 
 Tools Used:
 https://web3forms.com
+
+Packages Used:
+Tailwind CSS: https://tailwindcss.com/docs/installation/using-vite
+Motion: https://motion.dev/docs/react

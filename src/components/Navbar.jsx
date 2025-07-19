@@ -62,28 +62,28 @@ const Navbar = () => {
         </div>
         <ul className="flex flex-col items-center gap-2 mt-5 mx-5 text-lg font-medium">
           <a
-            href="#"
+            href="#Home"
             className="px-4 py-2 rounded-full inline-block"
             onClick={() => setShowMobileMenu(false)}
           >
             Home
           </a>
           <a
-            href="#"
+            href="#About"
             className="px-4 py-2 rounded-full inline-block"
             onClick={() => setShowMobileMenu(false)}
           >
             About
           </a>
           <a
-            href="#"
+            href="#Projects"
             className="px-4 py-2 rounded-full inline-block"
             onClick={() => setShowMobileMenu(false)}
           >
             Projects
           </a>
           <a
-            href="#"
+            href="#Testimonials"
             className="px-4 py-2 rounded-full inline-block"
             onClick={() => setShowMobileMenu(false)}
           >
