@@ -3,36 +3,12 @@ import { assets, projectsData } from "../assets/assets";
 import { motion } from "motion/react";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
-import "./Projects.css";
 
 const Projects = () => {
-  const [emblaRef] = useEmblaCarousel({ loop: false }, [Autoplay()]);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [cardsToShow, setCardsToShow] = useState(1);
-
-  useEffect(() => {
-    const updateCardsToShow = () => {
-      if (window.innerWidth >= 1024) {
-        setCardsToShow(projectsData.length);
-      } else {
-        setCardsToShow(1);
-      }
-    };
-    updateCardsToShow();
-
-    window.addEventListener("resize", updateCardsToShow);
-    return () => window.removeEventListener("resize", updateCardsToShow);
-  }, []);
-
-  const nextProject = () => {
-    setCurrentIndex((prev) => (prev + 1) % projectsData.length);
-  };
-
-  const prevProject = () => {
-    setCurrentIndex((prev) =>
-      prev === 0 ? projectsData.length - 1 : prev - 1
-    );
-  };
+  const [emblaRef, emblaApi] = useEmblaCarousel(
+    { align: "center", containScroll: "trimSnaps", loop: false },
+    [Autoplay()]
+  );
 
   return (
     <motion.div
@@ -53,30 +29,32 @@ const Projects = () => {
         Crafting Spaces, Building Legacies - Explore Our Portfolio
       </p>
 
-      {/* slider buttons */}
-
       {/* projects slider container */}
 
       <div className="overflow-hidden">
         <div className="embla" ref={emblaRef}>
-          <div className="embla__container relative flex w-full sm:w-1/4 gap-x-8">
+          <div className="embla__container flex gap-x-8 items-center h-full">
             {projectsData.map((project, idx) => (
-              <div key={idx} className="embla__slide relative">
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="w-full h-auto mb-10"
-                />
+              <div
+                key={idx}
+                className="embla__slide flex justify-center shrink-0 w-[75%] md:w-[60%] lg:w-[50%] mx-auto"
+              >
+                <div className="w-full max-w-md relative">
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    className="w-full h-auto mb-10"
+                  />
 
-                {/* Floating Info Box */}
-                <div className="absolute left-1/2 transform -translate-x-1/2 bottom-[10px] w-3/4 bg-white px-4 py-2 shadow-md">
-                  <h2 className="text-xl font-semibold text-gray-800 text-center">
-                    {project.title}
-                  </h2>
-                  <p className="text-gray-500 text-sm text-center">
-                    {project.price} <span className="px-1">|</span>
-                    {project.location}
-                  </p>
+                  <div className="absolute left-1/2 transform -translate-x-1/2 bottom-[10px] w-3/4 bg-white px-4 py-2 shadow-md">
+                    <h2 className="text-xl font-semibold text-gray-800 text-center">
+                      {project.title}
+                    </h2>
+                    <p className="text-gray-500 text-sm text-center">
+                      {project.price} <span className="px-1">|</span>
+                      {project.location}
+                    </p>
+                  </div>
                 </div>
               </div>
             ))}
