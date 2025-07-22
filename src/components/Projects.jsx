@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { assets, projectsData } from "../assets/assets";
 import { motion } from "motion/react";
+import useEmblaCarousel from "embla-carousel-react";
+import Autoplay from "embla-carousel-autoplay";
+import "./Projects.css";
 
 const Projects = () => {
+  const [emblaRef] = useEmblaCarousel({ loop: false }, [Autoplay()]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [cardsToShow, setCardsToShow] = useState(1);
 
@@ -51,52 +55,32 @@ const Projects = () => {
 
       {/* slider buttons */}
 
-      <div className="flex justify-end items-center mb-8">
-        <button
-          onClick={prevProject}
-          className="bg-gray-200 p-3 mr-2 rounded cursor-pointer"
-          aria-label="Previous Project"
-        >
-          <img src={assets.left_arrow} alt="previous" />
-        </button>
-        <button
-          onClick={nextProject}
-          className="bg-gray-200 p-3 mr-2 rounded cursor-pointer"
-          aria-label="Next Project"
-        >
-          <img src={assets.right_arrow} alt="next" />
-        </button>
-      </div>
-
       {/* projects slider container */}
 
       <div className="overflow-hidden">
-        <div
-          className="flex gap-8 transition-transform duration-300 ease-in-out"
-          style={{
-            transform: `translateX(-${(currentIndex * 100) / cardsToShow}%)`,
-          }}
-        >
-          {projectsData.map((project, index) => (
-            <div key={index} className="relative flex shrink-0 w-full sm:w-1/4">
-              <img
-                src={project.image}
-                alt={project.title}
-                className="w-full h-auto mb-14"
-              />
-              <div className="absolute left-0 right-0 bottom-5 flex justify-center">
-                <div className="inline-block bg-white w-3/4 px-4 py-2 shadow-md">
-                  <h2 className="text-xl font-semibold text-gray-800">
+        <div className="embla" ref={emblaRef}>
+          <div className="embla__container relative flex w-full sm:w-1/4 gap-x-8">
+            {projectsData.map((project, idx) => (
+              <div key={idx} className="embla__slide relative">
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  className="w-full h-auto mb-10"
+                />
+
+                {/* Floating Info Box */}
+                <div className="absolute left-1/2 transform -translate-x-1/2 bottom-[10px] w-3/4 bg-white px-4 py-2 shadow-md">
+                  <h2 className="text-xl font-semibold text-gray-800 text-center">
                     {project.title}
                   </h2>
-                  <p className="text-gray-500 text-sm">
+                  <p className="text-gray-500 text-sm text-center">
                     {project.price} <span className="px-1">|</span>
                     {project.location}
                   </p>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </motion.div>
